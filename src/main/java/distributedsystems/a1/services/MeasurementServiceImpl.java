@@ -1,9 +1,13 @@
 package distributedsystems.a1.services;
 
+import distributedsystems.a1.DTO.DeviceDTO;
 import distributedsystems.a1.DTO.MeasurementDTO;
 import distributedsystems.a1.DTO.builder.MeasurementBuilder;
+import distributedsystems.a1.entities.Device;
 import distributedsystems.a1.entities.Measurement;
+import distributedsystems.a1.entities.Sensor;
 import distributedsystems.a1.repositories.MeasurementRepo;
+import distributedsystems.a1.repositories.SensorRepo;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +23,14 @@ public class MeasurementServiceImpl implements  MeasurementService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MeasurementService.class);
     private MeasurementRepo measurementRepo;
+    private SensorRepo sensorRepo;
 
     @Autowired
-    public MeasurementServiceImpl(MeasurementRepo measurementRepo) { this.measurementRepo = measurementRepo; }
+    public MeasurementServiceImpl(MeasurementRepo measurementRepo, SensorRepo sensorRepo) {
+        this.measurementRepo = measurementRepo;
+        this.sensorRepo = sensorRepo;
+
+    }
 
     @Override
     public List<MeasurementDTO> findMeasurements() {
@@ -43,9 +52,20 @@ public class MeasurementServiceImpl implements  MeasurementService{
 
     @Override
     public Long insertMeasurement(MeasurementDTO measurementDTO) {
-        Measurement measurement = MeasurementBuilder.toEntity(measurementDTO);
+        Sensor sensor = sensorRepo.findById(measurementDTO.getSensorID()).get();
+        Measurement measurement = MeasurementBuilder.toEntity(measurementDTO, sensor);
         measurement = measurementRepo.save(measurement);
         LOGGER.debug("Measurement with id {} was inserted in db", measurement.getMeasurementID());
         return measurement.getMeasurementID();
     }
+
+    @Override
+    public void deleteMeasurement(Long measurementID){
+        if(measurementRepo.findById(measurementID).isPresent()){
+            LOGGER.error("Measurement with id {} was not found in db", measurementID);
+            throw new ResourceNotFoundException(Measurement.class.getSimpleName() + " with id: " + measurementID);
+        }
+        measurementRepo.deleteById(measurementID);
+    }
+
 }

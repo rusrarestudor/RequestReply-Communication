@@ -17,7 +17,7 @@ public class Sensor {
     private double max;
 
     @OneToOne
-    @JoinColumn(name = "deviceID")
+    @JoinColumn(name = "deviceID", unique = true)
     private Device device;
 
     public Sensor(Long sensorID, String description, double max, Device device) {

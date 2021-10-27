@@ -5,13 +5,13 @@ import org.springframework.hateoas.RepresentationModel;
 
 public class DeviceDTO extends RepresentationModel<DeviceDTO> {
 
-    public DeviceDTO(Long deviceID, String description, String location, Integer avg, Integer max, UserDTO user) {
+    public DeviceDTO(Long deviceID, String description, String location, Integer avg, Integer max, Long userID) {
         this.deviceID = deviceID;
         this.description = description;
         this.location = location;
         this.avg = avg;
         this.max = max;
-        this.user = user;
+        this.userID = userID;
     }
 
     private Long deviceID;
@@ -24,7 +24,7 @@ public class DeviceDTO extends RepresentationModel<DeviceDTO> {
 
     private Integer max;
 
-    private UserDTO user;
+    private Long userID;
 
     public void setDeviceID(Long deviceID) { this.deviceID = deviceID; }
 
@@ -36,7 +36,7 @@ public class DeviceDTO extends RepresentationModel<DeviceDTO> {
 
     public void setMax(Integer max) { this.max = max; }
 
-    public void setUser(UserDTO user) { this.user = user; }
+    public void setUser(Long user) { this.userID = user; }
 
     public Long getDeviceID() { return deviceID; }
 
@@ -48,6 +48,6 @@ public class DeviceDTO extends RepresentationModel<DeviceDTO> {
 
     public Integer getMax() { return max; }
 
-    public UserDTO getUser() { return user; }
+    public Long getUserID() { return userID; }
 
 }

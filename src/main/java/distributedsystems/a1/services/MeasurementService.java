@@ -8,4 +8,5 @@ public interface MeasurementService {
     public List<MeasurementDTO> findMeasurements();
     public MeasurementDTO findMeasurementById(Long id);
     public Long insertMeasurement(MeasurementDTO measurementDTO);
+    public void deleteMeasurement(Long measurementID);
 }

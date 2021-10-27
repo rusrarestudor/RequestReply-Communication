@@ -25,9 +25,13 @@ public class DeviceServiceImpl implements DeviceService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeviceService.class);
     private DeviceRepo deviceRepo;
+    private UserRepo userRepo;
 
     @Autowired
-    public DeviceServiceImpl(DeviceRepo deviceRepo) { this.deviceRepo = deviceRepo; }
+    public DeviceServiceImpl(DeviceRepo deviceRepo, UserRepo userRepo) {
+        this.deviceRepo = deviceRepo;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public List<DeviceDTO> findDevices(){
@@ -50,9 +54,42 @@ public class DeviceServiceImpl implements DeviceService{
 
     @Override
     public Long insertDevice(DeviceDTO deviceDTO){
-        Device device = DeviceBuilder.toEntity(deviceDTO);
+        User user = userRepo.findById(deviceDTO.getUserID()).get();
+        Device device = DeviceBuilder.toEntity(deviceDTO, user);
         device = deviceRepo.save(device);
         LOGGER.debug("Device with id {} was inserted in db", device.getDeviceID());
         return device.getDeviceID();
     };
+
+    @Override
+    public void deleteDevice(Long deviceID){
+        if(deviceRepo.findById(deviceID).isPresent()){
+            LOGGER.error("Device with id {} was not found in db", deviceID);
+            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + deviceID);
+        }
+        deviceRepo.deleteById(deviceID);
+    }
+
+    @Override
+    public Long updateDevice(Long deviceID, DeviceDTO deviceDTO){
+        Optional<Device> optionalDevice = deviceRepo.findById(deviceID);
+        if(!optionalDevice.isPresent()){
+            LOGGER.error("Device with id {} was not found in db", deviceID);
+            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + deviceID);
+
+        }
+
+        Device device = optionalDevice.get();
+
+        device.setDescription(deviceDTO.getDescription());
+        device.setLocation(deviceDTO.getLocation());
+        device.setAvg(deviceDTO.getAvg());
+        device.setMax(deviceDTO.getMax());
+        device.setUser(userRepo.findById(deviceDTO.getUserID()).get());
+
+        deviceRepo.save(device);
+
+        LOGGER.debug("Device with id {} was updated in db", device.getDeviceID());
+        return device.getDeviceID();
+    }
 }

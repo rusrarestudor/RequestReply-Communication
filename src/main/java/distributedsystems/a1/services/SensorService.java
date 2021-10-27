@@ -9,4 +9,6 @@ public interface SensorService {
     public List<SensorDTO> findSensors();
     public SensorDTO findSensorById(Long id);
     public Long insertSensor(SensorDTO sensorDTO);
+    public void deleteSensor(Long sensorID);
+    public Long updateSensor(Long sensorID, SensorDTO sensorDTO);
 }

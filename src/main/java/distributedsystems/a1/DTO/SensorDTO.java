@@ -5,11 +5,11 @@ import org.springframework.hateoas.RepresentationModel;
 
 public class SensorDTO extends RepresentationModel<SensorDTO> {
 
-    public SensorDTO(Long sensorID, String description, double max, Device device) {
+    public SensorDTO(Long sensorID, String description, double max, Long deviceID) {
         this.sensorID = sensorID;
         this.description = description;
         this.max = max;
-        this.device = device;
+        this.device = deviceID;
     }
 
     private Long sensorID;
@@ -18,7 +18,7 @@ public class SensorDTO extends RepresentationModel<SensorDTO> {
 
     private double max;
 
-    private Device device;
+    private Long device;
 
     public Long getSensorID() { return sensorID; }
 
@@ -32,7 +32,7 @@ public class SensorDTO extends RepresentationModel<SensorDTO> {
 
     public void setMax(double max) { this.max = max; }
 
-    public Device getDevice() { return device; }
+    public Long getDeviceID() { return device; }
 
-    public void setDevice(Device device) { this.device = device; }
+    public void setDeviceID(Long device) { this.device = device; }
 }

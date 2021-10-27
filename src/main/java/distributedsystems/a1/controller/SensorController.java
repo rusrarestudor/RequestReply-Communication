@@ -1,5 +1,6 @@
 package distributedsystems.a1.controller;
 
+import distributedsystems.a1.DTO.DeviceDTO;
 import distributedsystems.a1.DTO.SensorDTO;
 import distributedsystems.a1.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,17 @@ public class SensorController {
     public ResponseEntity<SensorDTO> getSensor(@PathVariable("id") Long sensorId) {
         SensorDTO dto = sensorService.findSensorById(sensorId);
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Long> deleteSensor(@PathVariable("id") Long sensorID) {
+        sensorService.deleteSensor(sensorID);
+        return new ResponseEntity<>(sensorID, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<SensorDTO> updateSensor(@PathVariable("id") Long sensorID, @Valid @RequestBody SensorDTO sensorDTO) {
+        sensorService.updateSensor(sensorID, sensorDTO);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }

@@ -11,15 +11,25 @@ public class DeviceBuilder {
     private DeviceBuilder(){ }
 
     public static DeviceDTO toDeviceDTO(Device device){
-        ModelMapper modelMapper = new ModelMapper();
-        DeviceDTO deviceDTO = modelMapper.map(device, DeviceDTO.class);
-        return deviceDTO;
+        return new DeviceDTO(
+                device.getDeviceID(),
+                device.getDescription(),
+                device.getLocation(),
+                device.getAvg(),
+                device.getMax(),
+                device.getUser().getUserID()
+        );
     }
 
-    public static Device toEntity(DeviceDTO deviceDTO) {
-        ModelMapper modelMapper = new ModelMapper();
-        Device device = modelMapper.map(deviceDTO, Device.class);
-        return device;
+    public static Device toEntity(DeviceDTO deviceDTO, User user) {
+        return new Device(
+                deviceDTO.getDeviceID(),
+                deviceDTO.getDescription(),
+                deviceDTO.getLocation(),
+                deviceDTO.getAvg(),
+                deviceDTO.getMax(),
+                user
+        );
     }
 
 }

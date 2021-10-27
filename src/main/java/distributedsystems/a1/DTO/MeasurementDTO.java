@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 public class MeasurementDTO extends RepresentationModel<MeasurementDTO> {
 
-    public MeasurementDTO(Long measurementID, LocalDateTime timeStamp, double value, Sensor sensor) {
+    public MeasurementDTO(Long measurementID, LocalDateTime timeStamp, double value, Long sensorID) {
         this.measurementID = measurementID;
         this.timeStamp = timeStamp;
         this.value = value;
-        this.sensor = sensor;
+        this.sensor = sensorID;
     }
 
     private Long measurementID;
@@ -20,7 +20,7 @@ public class MeasurementDTO extends RepresentationModel<MeasurementDTO> {
 
     private double value;
 
-    private Sensor sensor;
+    private Long sensor;
 
     public Long getMeasurementID() { return measurementID; }
 
@@ -34,7 +34,7 @@ public class MeasurementDTO extends RepresentationModel<MeasurementDTO> {
 
     public void setValue(double value) { this.value = value; }
 
-    public Sensor getSensor() { return sensor; }
+    public Long getSensorID() { return sensor; }
 
-    public void setSensor(Sensor sensor) { this.sensor = sensor; }
+    public void setSensorID(Long sensor) { this.sensor = sensor; }
 }

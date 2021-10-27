@@ -29,7 +29,7 @@ public class UserDTO extends RepresentationModel<UserDTO>{
 
     private String address;
 
-    private String role = "USER";
+    private String role = "CLIENT";
 
     public Long getUserID() { return userID; }
 

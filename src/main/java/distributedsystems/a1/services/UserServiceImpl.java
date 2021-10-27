@@ -2,6 +2,7 @@ package distributedsystems.a1.services;
 
 import distributedsystems.a1.DTO.UserDTO;
 import distributedsystems.a1.DTO.builder.UserBuilder;
+import distributedsystems.a1.entities.Device;
 import distributedsystems.a1.entities.User;
 import distributedsystems.a1.repositories.UserRepo;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -49,6 +50,38 @@ public class UserServiceImpl implements UserService{
         User user = UserBuilder.toEntity(userDTO);
         user = userRepo.save(user);
         LOGGER.debug("User with id {} was inserted in db", user.getUserID());
+        return user.getUserID();
+    }
+
+    @Override
+    public void deleteUser(Long userID){
+        if(userRepo.findById(userID).isPresent()){
+            LOGGER.error("User with id {} was not found in db", userID);
+            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + userID);
+        }
+        userRepo.deleteById(userID);
+    }
+
+    @Override
+    public Long updateUser(Long user_id, UserDTO userDTO){
+        Optional<User> optionalUser=userRepo.findById(user_id);
+        if(!optionalUser.isPresent()){
+            LOGGER.error("User with id {} was not found in db", user_id);
+            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + user_id);
+
+        }
+
+        User user = optionalUser.get();
+        user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+        user.setBirthdate(userDTO.getBirthdate());
+        user.setRole(userDTO.getRole());
+        user.setAddress(userDTO.getAddress());
+
+        userRepo.save(user);
+
+        LOGGER.debug("User with id {} was updated in db", user.getUserID());
         return user.getUserID();
     }
 }
