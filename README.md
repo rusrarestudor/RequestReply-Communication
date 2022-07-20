@@ -7,9 +7,11 @@ and on the mapping of clients to devices  and sensors to devices.
 
 
 Technologies used: 
+
 REST services for backend application (Java Spring) & JavaScript-based framework for client application(ReactJS)
 
 Requirements:
+
 -Functional: Users log in, Administrator Role, Client Role
 
 -Non-Functional: Security(cookies, session, etc.)
