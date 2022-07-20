@@ -6,17 +6,13 @@ The administrator can perform CRUD operations on client accounts, registered sma
 and on the mapping of clients to devices  and sensors to devices.
 
 
-Technologies used: 
+Technologies used: <br />
+ -REST services for backend application (Java Spring). <br />
+ -JavaScript-based framework for client application(ReactJS). <br />
 
- -REST services for backend application (Java Spring) 
-
- -JavaScript-based framework for client application(ReactJS)
-
-Requirements:
-
- -Functional: Users log in, Administrator Role, Client Role
-
- -Non-Functional: Security(cookies, session, etc.)
+Requirements: <br />
+ -Functional: Users log in, Administrator Role, Client Role <br />
+ -Non-Functional: Security(cookies, session, etc.) <br />
  
  This project was also deployed, but on GitLab(https://gitlab.com/rusrarestudor/ds2021_30442_rus_rares_1_backend/-/tree/production)
  
