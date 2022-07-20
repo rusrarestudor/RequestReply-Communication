@@ -8,13 +8,15 @@ and on the mapping of clients to devices  and sensors to devices.
 
 Technologies used: 
 
-REST services for backend application (Java Spring) & JavaScript-based framework for client application(ReactJS)
+ -REST services for backend application (Java Spring) 
+
+ -JavaScript-based framework for client application(ReactJS)
 
 Requirements:
 
--Functional: Users log in, Administrator Role, Client Role
+ -Functional: Users log in, Administrator Role, Client Role
 
--Non-Functional: Security(cookies, session, etc.)
+ -Non-Functional: Security(cookies, session, etc.)
  
  This project was also deployed, but on GitLab(https://gitlab.com/rusrarestudor/ds2021_30442_rus_rares_1_backend/-/tree/production)
  
